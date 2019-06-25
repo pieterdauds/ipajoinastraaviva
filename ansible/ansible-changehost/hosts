@@ -1,0 +1,23 @@
+[ipaclients]
+
+#[ipaservers]
+
+[ipaclients:vars]
+ansible_user= aviva
+#ansible_password= redhat
+ipaclient_keytab=/tmp/krb5.keytab
+#ipaclient_domain=lab.example.net
+#ipaclient_realm=LAB.EXAMPLE.NET
+ipaadmin_principal=admin
+ipaadmin_password=Redhat123
+#ipaclient_use_otp=no
+#ipaclient_force_join=yes
+#ipaclient_kinit_attempts=3
+ipaclient_mkhomedir=yes
+
+#ipaadmin_principal=admin
+#ipaclient_use_otp=yes
+#ipaclient_force_join=yes
+
+#ipaclient_use_otp=yes
+ipaclient_allow_repair=yes

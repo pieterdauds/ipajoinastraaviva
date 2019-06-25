@@ -1,0 +1,4 @@
+
+y=$(hostname);
+hostnamectl set-hostname "${y,,}.linux.avivaid.local";
+/bin/bash

@@ -1,0 +1,44 @@
+[domain/lab.example.net]
+
+
+cache_credentials = True
+krb5_store_password_if_offline = True
+ipa_domain = lab.example.net
+id_provider = ipa
+auth_provider = ipa
+access_provider = ipa
+ipa_hostname = iparhel6.lab.example.net
+chpass_provider = ipa
+ipa_server = _srv_, idm.lab.example.net, replicaidm.lab.example.net
+ldap_tls_cacert = /etc/ipa/ca.crt
+[sssd]
+services = nss, sudo, pam, ssh
+default_domain_suffix=example.net
+use_fully_qualified_names = True
+domain_resolution_order = example.net, lab.example.net
+
+#sudo_provider = ldap
+#ldap_uri = ldap://idm.lab.example.net
+#ldap_sudo_search_base = ou=sudoers,dc=lab,dc=example,dc=net
+#ldap_sasl_mech = GSSAPI
+#ldap_sasl_authid = host/iparhel6.lab.example.net
+#ldap_sasl_realm = LAB.EXAMPLE.NET
+#krb5_server = idm.lab.example.net
+
+domains = lab.example.net
+[nss]
+#homedir_substring = /home
+override_homedir = /home/%u
+default_shell = /bin/bash
+
+[pam]
+
+[sudo]
+
+[autofs]
+
+[ssh]
+
+[pac]
+
+[ifp]

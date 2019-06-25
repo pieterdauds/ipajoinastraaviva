@@ -1,0 +1,15 @@
+---
+- name: change hostname
+  become: true
+  become_method: sudo
+  shell: y=$(hostname);hostnamectl set-hostname "${y,,}.linux.avivaid.local";
+  args:
+   warn: False
+
+- name: Include Ubuntu specific tasks
+  tags:
+    - ubuntu
+    - freeipaclient
+  when: ansible_os_family == 'Debian'
+
+  include_tasks: ubuntu.yml

@@ -1,0 +1,13 @@
+---
+- hosts: all
+  vars:
+    freeipaclient_force_join: true
+    freeipaclient_server: ididmifprd001.linux.avivaid.local
+    freeipaclient_server_replica: ididmifdrcprd001.linux.avivaid.local
+    freeipaclient_domain: linux.avivaid.local
+    freeipaclient_dns_server: ididmifprd001.linux.avivaid.local 
+    freeipaclient_dns_server_replica: ididmifdrcprd001.linux.avivaid.local 
+    freeipaclient_enroll_user: admin
+    freeipaclient_enroll_pass: Redhat123!@#
+  roles:
+    - /etc/ansible/idm/ansible-client

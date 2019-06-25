@@ -1,0 +1,33 @@
+
+includedir /var/lib/sss/pubconf/krb5.include.d/
+
+[libdefaults]
+  default_realm = LAB.EXAMPLE.NET
+  dns_lookup_realm = false
+  dns_lookup_kdc = true
+  rdns = false
+  dns_canonicalize_hostname = false
+  ticket_lifetime = 24h
+  forwardable = true
+  udp_preference_limit = 0
+  default_ccache_name = KEYRING:persistent:%{uid}
+
+[realms]
+  LAB.EXAMPLE.NET = {
+    kdc = replicaidm.lab.example.net:88
+    master_kdc = replicaidm.lab.example.net:88
+    admin_server = replicaidm.lab.example.net:749
+    kdc = idm.lab.example.net:88
+    master_kdc = idm.lab.example.net:88
+    admin_server = idm.lab.example.net:749
+    default_domain = lab.example.net
+    pkinit_anchors = FILE:/etc/ipa/ca.crt
+
+  }
+
+
+[domain_realm]
+  .lab.example.net = LAB.EXAMPLE.NET
+  lab.example.net = LAB.EXAMPLE.NET
+
+

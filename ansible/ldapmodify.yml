@@ -1,0 +1,45 @@
+# install_ipa_server.yml
+# Chen Chang <cchang@redhat.com>
+
+#- hosts: 10.144.6.225
+- hosts: 127.0.0.1
+  #become: true
+  gather_facts: false
+  vars:
+
+    ipa_domain: linux.avivaid.local
+    ipa_realm: LINUX.AVIVAID.LOCAL
+    ipa_ds_password: "Redhat123!@#"       # This is the directory manager password
+    ipa_admin_password: "Redhat123!@#"    # This is the initial password for the 'admin' IPA superuser (web UI)
+    ipa_server_packages:
+      - ipa-server
+      - ipa-server-dns
+    ipa_firewalld_services:
+      - freeipa-ldap
+      - freeipa-ldaps
+      - dns
+    ntp_server: id.pool.ntp.org
+
+  tasks:
+    - name: Create ipa_pwd_extop plugin modification ldif
+      copy:
+        dest: /root/ipa_pwd_extop.ldif
+        content: |
+          dn: cn=ipa_pwd_extop,cn=plugins,cn=config
+          changetype: modify
+          add: passSyncManagersDNs
+          passSyncManagersDNs: uid=admin,cn=users,cn=accounts,dc=linux,dc=avivaid,dc=local
+
+    - name: Add passSyncManagersDNs attribute to ipa_pwd_extop plugin
+      shell: |
+        ldapmodify -x -D "cn=Directory Manager" \
+        -w {{ ipa_ds_password }} \
+        -h ididmifprd001.linux.avivaid.local \
+        -p 389 \
+        -f /root/ipa_pwd_extop.ldif
+      args:
+        executable: /usr/bin/bash
+   #   register: ldapmodify_result
+   #   failed_when: ldapmodify_result.rc != 0 and ldapmodify_result.rc != 20
+   
+    

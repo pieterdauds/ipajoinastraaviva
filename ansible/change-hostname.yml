@@ -1,0 +1,9 @@
+---
+- name: change hostname
+  become: true
+  become_method: sudo
+  tasks:
+  - name: test
+    shell: y=$(hostname);hostnamectl set-hostname "${y,,}.linux.avivaid.local";
+    args:
+     warn: False
